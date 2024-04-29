@@ -193,7 +193,7 @@ useEffect(() => {
                   <Segment loading={loading}>
                     <img src="https://raw.githubusercontent.com/ankusa/tataplay_url/main/public/Tata-Sky-Logo.png" width="230" height="60" alt="TATA SKY LOGO" />
                     <Header as={'p'}>🙋 Hey there! Create your own Tataplay playlist here.</Header>
-                    <Header as={'p'}>🎉 Please log in using your TataPlay account to start enjoying the services.</Header>
+                    <p>🎉 Please log in using your TataPlay account to start enjoying the services.</p>
                     <Form>
                       <Form.Group inline>
                         <label>Login via </label>
