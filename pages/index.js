@@ -303,6 +303,7 @@ useEffect(() => {
             <Grid.Column></Grid.Column>
             <Grid.Column textAlign='center' computer={8} tablet={12} mobile={16}>
               <a href="cheapgeeky.com" target="_blank" rel="noreferrer">Visit CheapGeeky</a>
+            <p>Made with ♥️ by Ankush.</p>
             </Grid.Column>
             <Grid.Column></Grid.Column>
           </Grid.Row>
