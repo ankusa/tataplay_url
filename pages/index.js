@@ -177,7 +177,7 @@ useEffect(() => {
   return (
     <div>
       <Head>
-        <title>Generate Tata Play IPTV playlist</title>
+        <title>TATAPLAY M3U</title>
         <meta
           name="description"
           content="Easiest way to generate a Tata Play IPTV (m3u) playlist for the channels you have subscribed to."
@@ -204,7 +204,7 @@ useEffect(() => {
                             onChange={(e, { value }) => { setLoginType(value); }}
                           />
                         </Form.Field>
-                        <Form.Field>
+                        {/*<Form.Field>
                           <Radio
                             label='Password'
                             name='loginTypeRadio'
@@ -212,7 +212,7 @@ useEffect(() => {
                             checked={loginType === 'PWD'}
                             onChange={(e, { value }) => { setLoginType(value); }}
                           />
-                        </Form.Field>
+                        </Form.Field>*/}
                       </Form.Group>
 
                       {
@@ -274,7 +274,7 @@ useEffect(() => {
   <Message.Header>You cannot generate a permanent m3u file URL on localhost but you can download your m3u file: </Message.Header>
   <p></p>
   <p>
-    <Button loading={downloading} primary onClick={() => downloadM3uFile('ts.m3u')}>Download m3u file</Button>
+    <Button loading={downloading} primary onClick={() => downloadM3uFile('cheapgeeky.m3u')}>Download m3u file</Button>
   </p>
   <p>The downloaded m3u file will be valid only for 24 hours.</p>
 </Message>
@@ -300,7 +300,7 @@ useEffect(() => {
           <Grid.Row>
             <Grid.Column></Grid.Column>
             <Grid.Column textAlign='center' computer={8} tablet={12} mobile={16}>
-              <a href="https://github.com/lalitjoshi06/tataplay_url" target="_blank" rel="noreferrer">View source code on Github</a>
+              <a href="cheapgeeky.com" target="_blank" rel="noreferrer">Visit CheapGeeky</a>
             </Grid.Column>
             <Grid.Column></Grid.Column>
           </Grid.Row>
