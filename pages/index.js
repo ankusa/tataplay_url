@@ -191,7 +191,7 @@ useEffect(() => {
                 <Grid.Column></Grid.Column>
                 <Grid.Column computer={8} tablet={12} mobile={16}>
                   <Segment loading={loading}>
-                    <img src="https://raw.githubusercontent.com/ankusa/tataplay_url/main/public/Tata-Sky-Logo.png" width="230" height="60" alt="TATA SKY LOGO" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Tata_Play_2022_logo.svg" width="230" height="60" alt="TATA SKY LOGO" />
                     <Header as={'p'}>🙋 Hey there! Create your own Tataplay playlist here.</Header>
                     <p>🎉 Please log in using your TataPlay account to start enjoying the services.</p>
                     <Form>
