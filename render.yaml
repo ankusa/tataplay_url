@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: tatasky
+    name: tatasky-ankush
     env: node
     plan: free
     startCommand: npm run start
