@@ -191,7 +191,7 @@ useEffect(() => {
                 <Grid.Column></Grid.Column>
                 <Grid.Column computer={8} tablet={12} mobile={16}>
                   <Segment loading={loading}>
-                    <img src={`https://raw.githubusercontent.com/ankusa/tataplay_url/main/public/Tata-Sky-Logo.png`} alt="QR Code" />
+                    <img src="https://raw.githubusercontent.com/ankusa/tataplay_url/main/public/Tata-Sky-Logo.png" width="107" height="60" alt="TATA SKY LOGO" />
                     <Header as={'h1'}>Generate Tata Play m3u</Header>
                     <Form>
                       <Form.Group inline>
