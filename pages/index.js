@@ -193,7 +193,7 @@ useEffect(() => {
                   <Segment loading={loading}>
                     <img src="https://raw.githubusercontent.com/ankusa/tataplay_url/main/public/Tata-Sky-Logo.png" width="107" height="60" alt="TATA SKY LOGO" />
                     <Header as={'h4'}>🙋‍♂️ HEY USERS, GENERATE YOUR TATAPLAY PLAYLIST HERE</Header>
-                    <Header as={'p'}>🕊️ Login with Your TataPlay Accounts ✨ Then Enjoy</Header>
+                    <Header as={'h5'}>🕊️ Login with Your TataPlay Accounts ✨ Then Enjoy</Header>
                     <Header as={'h4'}>🔔 NOW ONLY OTP LOGIN WORKS 🔔</Header>
                     <Form>
                       <Form.Group inline>
