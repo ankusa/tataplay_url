@@ -214,8 +214,8 @@ useEffect(() => {
                             checked={loginType === 'PWD'}
                             onChange={(e, { value }) => { setLoginType(value); }}
                           />
-                        </Form.Field>*/}
-                      </Form.Group>
+                        </Form.Field>
+                      </Form.Group>*/}
 
                       {
                         loginType === 'OTP' ?
