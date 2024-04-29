@@ -195,7 +195,7 @@ useEffect(() => {
                     <Header as={'p'}>🙋 Hey there! Create your own Tataplay playlist here.</Header>
                     <p>🎉 Please log in using your TataPlay account to start enjoying the services.</p>
                     <Form>
-                      <Form.Group inline>
+                      {/*<Form.Group inline>
                         <label>Login via </label>
                         <Form.Field>
                           <Radio
@@ -206,7 +206,7 @@ useEffect(() => {
                             onChange={(e, { value }) => { setLoginType(value); }}
                           />
                         </Form.Field>
-                        {/*<Form.Field>
+                        <Form.Field>
                           <Radio
                             label='Password'
                             name='loginTypeRadio'
