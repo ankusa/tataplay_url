@@ -278,7 +278,11 @@ useEffect(() => {
   </p>
   <p>The downloaded m3u file will only be valid for 24 hours.</p>
   <Message.Header>Note: Use this playlist on OTT Navigator and set it to reload data every 10 minutes because HMAC expires every 10 minutes for most channels.</Message.Header>
-</Message>
+  <Message.Header>Download Recommended Apps</Message.Header>
+  <p>
+    <Button loading={downloading} primary onClick={https://github.com/ankusa/tataplay_url/raw/main/public/OTT%20TV%201.6_Arm7.apk}>OTT TV</Button>
+  </p>
+  </Message>
 
                     <Button negative onClick={logout}>Logout</Button>
                   </Segment>
