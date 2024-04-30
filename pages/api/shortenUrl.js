@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     };
 
     try {
-        const fetchResponse = await fetch("https://www.shorturl.at/shortener.php", requestOptions);
+        const fetchResponse = await fetch("https://www.shortlink.net/create.php", requestOptions);
         if (!fetchResponse.ok) {
             throw new Error('Network response was not ok');
         }
