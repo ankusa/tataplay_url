@@ -268,17 +268,16 @@ useEffect(() => {
     <a href={dynamicUrl}>{dynamicUrl}</a>
   </p>
   <p>
-    You can use the above m3u URL in OTT Navigator or Tivimate app to watch all your subscribed channels.
+    You can use the provided m3u URL to watch all Tata Play channels on OTT Navigator or Tivimate app.
   </p>
   <p>
-    The generated m3u URL is for permanent use and is not required to be refreshed every 24 hours. Enjoy!
+    No need to worry about refreshing the m3u URL every 24 hours, as the one generated is permanent. Enjoy uninterrupted streaming!
   </p>
-  <Message.Header>You cannot generate a permanent m3u file URL on localhost but you can download your m3u file: </Message.Header>
-  <p></p>
+  <Message.Header>You cannot generate a permanent m3u file URL on localhost. However, you can download your m3u file.</Message.Header>
   <p>
-    <Button loading={downloading} primary onClick={() => downloadM3uFile('cheapgeeky.m3u')}>Download m3u file</Button>
+    <Button loading={downloading} primary onClick={() => downloadM3uFile('playlist.m3u')}>Download m3u file</Button>
   </p>
-  <p>The downloaded m3u file will be valid only for 24 hours.</p>
+  <p>The downloaded m3u file will only be valid for 24 hours.</p>
 </Message>
 
                     <Button negative onClick={logout}>Logout</Button>
