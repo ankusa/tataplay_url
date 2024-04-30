@@ -41,7 +41,7 @@ useEffect(() => {
             '&sname=' + encodeURIComponent(theUser.sName) +
             '&tkn=' + encodeURIComponent(token);
 
-        fetch("/api/shortenUrl", {
+      {/*fetch("/api/shortenUrl", {
             method: 'POST',
             body: JSON.stringify({
                 longUrl: url
@@ -69,7 +69,7 @@ useEffect(() => {
             }
         })
         .catch(error => console.error('Error fetching shortened URL:', error));
-    }
+    }*/}
 
     // Cleanup code here if necessary
     return () => {
