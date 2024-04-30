@@ -191,7 +191,7 @@ useEffect(() => {
                 <Grid.Column></Grid.Column>
                 <Grid.Column computer={8} tablet={12} mobile={16}>
                   <Segment loading={loading}>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Tata_Play_2022_logo.svg" width="300" height="60" alt="TATA SKY LOGO" />
+                    <Image https://upload.wikimedia.org/wikipedia/commons/2/29/Tata_Play_2022_logo.svg" width="300" height="60" alt="TATA SKY LOGO" />
                     <Header as={'p'}>🙋 Hey there! Create your own Tataplay playlist here.</Header>
                     <p>🎉 Please log in using your TataPlay account to start enjoying the services.</p>
                     <Form>
@@ -278,11 +278,7 @@ useEffect(() => {
   </p>
   <p>The downloaded m3u file will only be valid for 24 hours.</p>
   <Message.Header>Note: Use this playlist on OTT Navigator and set it to reload data every 10 minutes because HMAC expires every 10 minutes for most channels.</Message.Header>
-  <Message.Header>Download Recommended Apps</Message.Header>
-  <p>
-    <Link to="/public/OTT%20TV%201.6_Arm7.apk" target="_blank" download>OTT TV v1.6 arm7</Link>
-  </p>
-  </Message>
+    </Message>
 
                     <Button negative onClick={logout}>Logout</Button>
                   </Segment>
