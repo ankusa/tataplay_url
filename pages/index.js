@@ -191,7 +191,7 @@ useEffect(() => {
                 <Grid.Column></Grid.Column>
                 <Grid.Column computer={8} tablet={12} mobile={16}>
                   <Segment loading={loading}>
-                    <Image src="https://upload.wikimedia.org/wikipedia/commons/2/29/Tata_Play_2022_logo.svg" width="300" height="60" alt="TATA SKY LOGO" />
+                    <img src={'https://upload.wikimedia.org/wikipedia/commons/2/29/Tata_Play_2022_logo.svg'} width={300} height={60} alt="TATA SKY LOGO" />
                     <Header as={'p'}>🙋 Hey there! Create your own Tataplay playlist here.</Header>
                     <p>🎉 Please log in using your TataPlay account to start enjoying the services.</p>
                     <Form>
@@ -263,7 +263,7 @@ useEffect(() => {
                     <Header as="h1">Welcome, {theUser.sName}</Header>
                    <Message>
   <Message.Header>Dynamic URL to get m3u: </Message.Header>
-<Image src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(dynamicUrl)}&size=small" alt="QR Code" />
+<img src={'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(dynamicUrl)}&size=small'} alt="QR Code" />
   <p>
     <a href={dynamicUrl}>{dynamicUrl}</a>
   </p>
