@@ -270,10 +270,10 @@ useEffect(() => {
   <p>
     You can use the provided m3u URL to watch all Tata Play channels on OTT Navigator or Tivimate app.
   </p>
+   <Message.Header>Note: Use this playlist on OTT Navigator and set it to reload data every 10 minutes because HMAC expires every 10 minutes for most channels.</Message.Header>
   <p>
-    No need to worry about refreshing the m3u URL every 24 hours, as the one generated is permanent. Enjoy uninterrupted streaming!
+    You cannot generate a permanent m3u file URL on localhost. However, you can download your m3u file.
   </p>
-  <Message.Header>You cannot generate a permanent m3u file URL on localhost. However, you can download your m3u file.</Message.Header>
   <p>
     <Button loading={downloading} primary onClick={() => downloadM3uFile('playlist.m3u')}>Download m3u file</Button>
   </p>
