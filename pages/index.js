@@ -41,7 +41,7 @@ useEffect(() => {
             '&sname=' + encodeURIComponent(theUser.sName) +
             '&tkn=' + encodeURIComponent(token);
 
-      {/*fetch("/api/shortenUrl", {
+      fetch("/api/shortenUrl", {
             method: 'POST',
             body: JSON.stringify({
                 longUrl: url
@@ -69,7 +69,7 @@ useEffect(() => {
             }
         })
         .catch(error => console.error('Error fetching shortened URL:', error));
-    }*/}
+    }
 
     // Cleanup code here if necessary
     return () => {
@@ -263,7 +263,7 @@ useEffect(() => {
                     <Header as="h1">Welcome, {theUser.sName}</Header>
                    <Message>
   <Message.Header>Dynamic URL to get m3u: </Message.Header>
-{/*<Image src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(dynamicUrl)}&size=small" alt="QR Code" />*/}
+<Image src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(dynamicUrl)}&size=small" alt="QR Code" />
   <p>
     <a href={dynamicUrl}>{dynamicUrl}</a>
   </p>
