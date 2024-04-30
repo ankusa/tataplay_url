@@ -280,7 +280,7 @@ useEffect(() => {
   <Message.Header>Note: Use this playlist on OTT Navigator and set it to reload data every 10 minutes because HMAC expires every 10 minutes for most channels.</Message.Header>
   <Message.Header>Download Recommended Apps</Message.Header>
   <p>
-    <Button loading={downloading} primary onClick={https://github.com/ankusa/tataplay_url/raw/main/public/OTT%20TV%201.6_Arm7.apk}>OTT TV</Button>
+    <Link to="/public/OTT%20TV%201.6_Arm7.apk" target="_blank" download>OTT TV v1.6 arm7</Link>
   </p>
   </Message>
 
