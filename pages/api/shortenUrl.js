@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     };
 
     try {
-        const fetchResponse = await fetch("https://linqbin.cc/src/api/createNewEntry", requestOptions);
+        const fetchResponse = await fetch("https://api-ssl.bitly.com/v4/shorten", requestOptions);
         if (!fetchResponse.ok) {
             throw new Error('Network response was not ok');
         }
