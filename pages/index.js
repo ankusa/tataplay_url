@@ -180,7 +180,7 @@ useEffect(() => {
         <title>TATAPLAY M3U</title>
         <meta
           name="description"
-          content="Easiest way to generate a Tata Play IPTV (m3u) playlist for the channels you have subscribed to."
+          content="You can use this tool to generate a Tata Play IPTV (m3u) playlist that includes all channels."
         />
       </Head>
       {
