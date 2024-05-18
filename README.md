@@ -1,4 +1,6 @@
-# Tata Sky m3u generator web app
+# obsolete now not maintaining. 
+use  this https://github.com/lalitjoshi06/Tplay_All.git  
+Tata Sky m3u generator web app
 A react web app to generate an m3u playlist for the channels Available on Tata Sky.
 ## Update
 Converted to a single repo to make it a one click deploy on vercel as a lot of you non-technical people were facing difficulties while deploying.
@@ -21,5 +23,7 @@ b) npm run dev
            There is some issue to create dynamic url on Vercel use render for dynamic url, and if you know how to create manually then create manually.
            or run it locally on pc you will get dynamic URL.
         
-Special thanks to CodeCrafters for their API.
+This script is only for educational purpose and not for sale.
+
+##Special thanks to CodeCrafters for their API.##
 
