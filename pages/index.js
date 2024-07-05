@@ -1,5 +1,4 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { useEffect, useState } from 'react';
 
@@ -17,8 +16,6 @@ export default function Home() {
   const [pwd, setPwd] = useState("");
   const [downloading, setDownloading] = useState(false);
 
-  const BITLY_API_TOKEN = '068dfecf9be53747723678426ca6758a0c9df94d';
-
   useEffect(() => {
     let tok = localStorage.getItem("token");
     let userd = localStorage.getItem("userDetails");
@@ -31,28 +28,29 @@ export default function Home() {
 
   useEffect(() => {
     if (theUser !== null) {
-      const url = `${window.location.origin.replace('localhost', '127.0.0.1')}/api/getM3u?sid=${encodeURIComponent(theUser.sid)}_A&id=${encodeURIComponent(theUser.id)}&sname=${encodeURIComponent(theUser.sName)}&tkn=${encodeURIComponent(token)}`;
+      const url = window.location.origin.replace('localhost', '127.0.0.1') +
+        '/api/getM3u?sid=' + encodeURIComponent(theUser.sid) +
+        '_A&id=' + encodeURIComponent(theUser.id) +
+        '&sname=' + encodeURIComponent(theUser.sName) +
+        '&tkn=' + encodeURIComponent(token);
 
-      fetch('https://api-ssl.bitly.com/v4/shorten', {
+      fetch("https://api.tinyurl.com/create", {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${BITLY_API_TOKEN}`,
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer https://tinyurl.com/openapi/v2.json'
         },
-        body: JSON.stringify({ long_url: url })
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.status} - ${response.statusText}`);
-          }
-          return response.json();
+        body: JSON.stringify({
+          url: url,
+          domain: "tinyurl.com"
         })
+      })
+        .then(response => response.json())
         .then(result => {
-          console.log('Bitly Short URL result:', result); // Add logging for debugging
-          if (result && result.link) {
-            setDynamicUrl(result.link);
+          if (result && result.data) {
+            setDynamicUrl(result.data.tiny_url);
           } else {
-            console.error("Shorten URL not found in response data.");
+            console.error("Empty or invalid response data.");
           }
         })
         .catch(error => console.error('Error fetching shortened URL:', error));
@@ -61,9 +59,10 @@ export default function Home() {
 
   const getOTP = () => {
     setLoading(true);
-    fetch(`/api/getOtp?rmn=${rmn}`)
-      .then(response => response.json())
-      .then(res => {
+    fetch("/api/getOtp?rmn=" + rmn)
+      .then(response => response.text())
+      .then(result => {
+        const res = JSON.parse(result);
         setLoading(false);
         if (res.message.toLowerCase().includes("otp") && res.message.toLowerCase().includes("successfully")) {
           setOtpSent(true);
@@ -82,8 +81,9 @@ export default function Home() {
   const authenticateUser = () => {
     setLoading(true);
     fetch(`/api/getAuthToken?sid=${sid}&loginType=${loginType}&otp=${otp}&pwd=${pwd}&rmn=${rmn}`)
-      .then(response => response.json())
-      .then(res => {
+      .then(response => response.text())
+      .then(result => {
+        const res = JSON.parse(result);
         if (res.code === 0) {
           let userDetails = res.data.userDetails;
           userDetails.id = res.data.userProfile.id;
@@ -118,7 +118,7 @@ export default function Home() {
     setLoading(false);
   }
 
-  const downloadM3uFile = (filename) => {
+  function downloadM3uFile(filename) {
     setDownloading(true);
     fetch(`${window.location.origin}/api/getM3u?sid=${theUser.sid}_A&id=${theUser.id}&sname=${theUser.sName}&tkn=${token}`)
       .then(response => response.text())
@@ -142,83 +142,100 @@ export default function Home() {
     <div>
       <Head>
         <title>TATAPLAY M3U</title>
-        <meta name="description" content="You can use this tool to generate a Tata Play IPTV (m3u) playlist that includes all channels." />
+        <meta
+          name="description"
+          content="You can use this tool to generate a Tata Play IPTV (m3u) playlist that includes all channels."
+        />
       </Head>
       <Grid columns='equal' padded centered>
-        {token === "" || theUser === null ?
-          <Grid.Row>
-            <Grid.Column></Grid.Column>
-            <Grid.Column computer={8} tablet={12} mobile={16}>
-              <Segment loading={loading}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Tata_Play_2022_logo.svg" width="300" height="60" alt="TATA SKY LOGO" />
-                <Header as={'p'}>🙋 Hey there! Create your own Tataplay playlist here.</Header>
-                <p>🎉 Please log in using your TataPlay account to start enjoying the services.</p>
-                <Form>
-                  {loginType === 'OTP' ?
-                    <>
-                      <Form.Field disabled={otpSent}>
-                        <label>RMN</label>
-                        <input value={rmn} placeholder='Registered Mobile Number' onChange={(e) => setRmn(e.currentTarget.value)} />
-                      </Form.Field>
-                      <Form.Field disabled={otpSent}>
-                        <label>Subscriber ID</label>
-                        <input value={sid} placeholder='Subscriber ID' onChange={(e) => setSid(e.currentTarget.value)} />
-                      </Form.Field>
-                      <Form.Field disabled={!otpSent}>
-                        <label>OTP</label>
-                        <input value={otp} placeholder='OTP' onChange={(e) => setOtp(e.currentTarget.value)} />
-                      </Form.Field>
-                      {otpSent ? <Button primary onClick={authenticateUser}>Login</Button> : <Button primary onClick={getOTP}>Get OTP</Button>}
-                    </> :
-                    <>
-                      <Form.Field>
-                        <label>Subscriber ID</label>
-                        <input value={sid} placeholder='Subscriber ID' onChange={(e) => setSid(e.currentTarget.value)} />
-                      </Form.Field>
-                      <Form.Field>
-                        <label>Password</label>
-                        <input type='password' value={pwd} placeholder='Password' onChange={(e) => setPwd(e.currentTarget.value)} />
-                      </Form.Field>
-                      <Button primary onClick={authenticateUser}>Login</Button>
-                    </>
-                  }
-                </Form>
-              </Segment>
-            </Grid.Column>
-            <Grid.Column></Grid.Column>
-          </Grid.Row> :
-          <Grid.Row>
-            <Grid.Column></Grid.Column>
-            <Grid.Column computer={8} tablet={12} mobile={16}>
-              <Segment loading={loading}>
-                <Header as="h1">Welcome, {theUser.sName}</Header>
-                <Message>
-                  <Message.Header>Dynamic URL to get m3u:</Message.Header>
-                  <p><a href={dynamicUrl}>{dynamicUrl}</a></p>
-                  <p>You can use the provided m3u URL to watch all Tata Play channels on OTT Navigator or Tivimate app.</p>
-                  <p>You cannot generate a permanent m3u file URL on localhost. However, you can download your m3u file.</p>
-                  <p><Button loading={downloading} primary onClick={() => downloadM3uFile('playlist.m3u')}>Download m3u file</Button></p>
-                  <p>The downloaded m3u file will only be valid for 24 hours.</p>
-                  <Message.Header>Note: Use this playlist on OTT Navigator and set it to reload data every 10 minutes because HMAC expires every 10 minutes for most channels.</Message.Header>
-                </Message>
-                <Button negative onClick={logout}>Logout</Button>
-              </Segment>
-            </Grid.Column>
-            <Grid.Column></Grid.Column>
-          </Grid.Row>
+        {
+          token === "" || theUser === null ?
+            <Grid.Row>
+              <Grid.Column></Grid.Column>
+              <Grid.Column computer={8} tablet={12} mobile={16}>
+                <Segment loading={loading}>
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Tata_Play_2022_logo.svg" width="300" height="60" alt="TATA SKY LOGO" />
+                  <Header as={'p'}>🙋 Hey there! Create your own Tataplay playlist here.</Header>
+                  <p>🎉 Please log in using your TataPlay account to start enjoying the services.</p>
+                  <Form>
+                    {
+                      loginType === 'OTP' ?
+                        <>
+                          <Form.Field disabled={otpSent}>
+                            <label>RMN</label>
+                            <input value={rmn} placeholder='Registered Mobile Number' onChange={(e) => setRmn(e.currentTarget.value)} />
+                          </Form.Field>
+                          <Form.Field disabled={otpSent}>
+                            <label>Subscriber ID</label>
+                            <input value={sid} placeholder='Subscriber ID' onChange={(e) => setSid(e.currentTarget.value)} />
+                          </Form.Field>
+                          <Form.Field disabled={!otpSent}>
+                            <label>OTP</label>
+                            <input value={otp} placeholder='OTP' onChange={(e) => setOtp(e.currentTarget.value)} />
+                          </Form.Field>
+                          {
+                            otpSent ? <Button primary onClick={authenticateUser}>Login</Button> :
+                              <Button primary onClick={getOTP}>Get OTP</Button>
+                          }
+                        </>
+                        :
+                        <>
+                          <Form.Field>
+                            <label>Subscriber ID</label>
+                            <input value={sid} placeholder='Subscriber ID' onChange={(e) => setSid(e.currentTarget.value)} />
+                          </Form.Field>
+                          <Form.Field>
+                            <label>Password</label>
+                            <input type='password' value={pwd} placeholder='Password' onChange={(e) => setPwd(e.currentTarget.value)} />
+                          </Form.Field>
+                          <Button primary onClick={authenticateUser}>Login</Button>
+                        </>
+                    }
+                  </Form>
+                </Segment>
+              </Grid.Column>
+              <Grid.Column></Grid.Column>
+            </Grid.Row> :
+            <Grid.Row>
+              <Grid.Column></Grid.Column>
+              <Grid.Column computer={8} tablet={12} mobile={16}>
+                <Segment loading={loading}>
+                  <Header as="h1">Welcome, {theUser.sName}</Header>
+                  <Message>
+                    <Message.Header>Dynamic URL to get m3u: </Message.Header>
+                    <p>
+                      <a href={dynamicUrl}>{dynamicUrl}</a>
+                    </p>
+                    <p>
+                      You can use the provided m3u URL to watch all Tata Play channels on OTT Navigator or Tivimate app.
+                    </p>
+                    <p>
+                      You cannot generate a permanent m3u file URL on localhost. However, you can download your m3u file.
+                    </p>
+                    <p>
+                      <Button loading={downloading} primary onClick={() => downloadM3uFile('playlist.m3u')}>Download m3u file</Button>
+                    </p>
+                    <p>The downloaded m3u file will only be valid for 24 hours.</p>
+                    <Message.Header>Note: Use this playlist on OTT Navigator and set it to reload data every 10 minutes because HMAC expires every 10 minutes for most channels.</Message.Header>
+                  </Message>
+                  <Button negative onClick={logout}>Logout</Button>
+                </Segment>
+              </Grid.Column>
+              <Grid.Column></Grid.Column>
+            </Grid.Row>
         }
-        {err && (
-          <Grid.Row>
-            <Grid.Column></Grid.Column>
-             <Grid.Column computer={8} tablet={12} mobile={16}>
-              <Message negative>
-                <Message.Header>Error</Message.Header>
-                <p>{err}</p>
-              </Message>
-            </Grid.Column>
-            <Grid.Column></Grid.Column>
-          </Grid.Row>
-        )}
+        <Grid.Row style={{ display: err === '' ? 'none' : 'block' }}>
+          <Grid.Column></Grid.Column>
+          <Grid.Column computer={8} tablet={12} mobile={16}>
+            <Message color='red'>
+              <Message.Header>Error</Message.Header>
+              <p>
+                {err}
+              </p>
+            </Message>
+          </Grid.Column>
+          <Grid.Column></Grid.Column>
+        </Grid.Row>
         <Grid.Row>
           <Grid.Column></Grid.Column>
           <Grid.Column textAlign='center' computer={8} tablet={12} mobile={16}>
@@ -229,5 +246,5 @@ export default function Home() {
         </Grid.Row>
       </Grid>
     </div>
-  );
+  )
 }
