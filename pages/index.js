@@ -4,7 +4,6 @@ import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { useEffect, useState } from 'react';
 
 export default function Home() {
-
   const [rmn, setRmn] = useState("");
   const [sid, setSid] = useState("");
   const [otpSent, setOtpSent] = useState(false);
@@ -18,43 +17,43 @@ export default function Home() {
   const [pwd, setPwd] = useState("");
   const [downloading, setDownloading] = useState(false);
 
+  const BITLY_API_TOKEN = '068dfecf9be53747723678426ca6758a0c9df94d';
+
   useEffect(() => {
     let tok = localStorage.getItem("token");
     let userd = localStorage.getItem("userDetails");
 
     if (tok !== null && userd !== null) {
-        setToken(tok);
-        setUser(JSON.parse(userd));
+      setToken(tok);
+      setUser(JSON.parse(userd));
     }
   }, []);
 
   useEffect(() => {
     if (theUser !== null) {
-        const url = `${window.location.origin.replace('localhost', '127.0.0.1')}/api/getM3u?sid=${encodeURIComponent(theUser.sid)}_A&id=${encodeURIComponent(theUser.id)}&sname=${encodeURIComponent(theUser.sName)}&tkn=${encodeURIComponent(token)}`;
+      const url = `${window.location.origin.replace('localhost', '127.0.0.1')}/api/getM3u?sid=${encodeURIComponent(theUser.sid)}_A&id=${encodeURIComponent(theUser.id)}&sname=${encodeURIComponent(theUser.sName)}&tkn=${encodeURIComponent(token)}`;
 
-        fetch("/api/shortenUrl", {
-            method: 'POST',
-            body: JSON.stringify({ longUrl: url })
-        })
+      fetch('https://api-ssl.bitly.com/v4/shorten', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${BITLY_API_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ long_url: url })
+      })
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.status} - ${response.statusText}`);
-            }
-            return response.json();
+          if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.status} - ${response.statusText}`);
+          }
+          return response.json();
         })
         .then(result => {
-            if (result && result.data) {
-                const mydiv = document.createElement('div');
-                mydiv.innerHTML = result.data;
-                const shortenurl = mydiv.querySelector('#shortenurl');
-                if (shortenurl) {
-                    setDynamicUrl(shortenurl.value);
-                } else {
-                    console.error("Shorten URL not found in response data.");
-                }
-            } else {
-                console.error("Empty or invalid response data.");
-            }
+          console.log('Bitly Short URL result:', result); // Add logging for debugging
+          if (result && result.link) {
+            setDynamicUrl(result.link);
+          } else {
+            console.error("Shorten URL not found in response data.");
+          }
         })
         .catch(error => console.error('Error fetching shortened URL:', error));
     }
@@ -211,8 +210,8 @@ export default function Home() {
         {err && (
           <Grid.Row>
             <Grid.Column></Grid.Column>
-            <Grid.Column computer={8} tablet={12} mobile={16}>
-              <Message color='red'>
+             <Grid.Column computer={8} tablet={12} mobile={16}>
+              <Message negative>
                 <Message.Header>Error</Message.Header>
                 <p>{err}</p>
               </Message>
